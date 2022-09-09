@@ -32,9 +32,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User login(String username, String password, String type) {
         HashMap<String, Object> map = new HashMap<>();
         // 自定义要查询
-        map.put(username,username);
-        map.put(password,password);
-        map.put(type,type);
+        map.put("username",username);
+        map.put("password",password);
+        map.put("type",type);
         List<User> users = userMapper.selectByMap(map);
         if (users.size()>0){
             return users.get(0);
