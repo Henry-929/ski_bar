@@ -23,6 +23,11 @@ public class Telnet {
         NODATA(101),
 
         /**
+         *自定义CODE >1000 重复数据
+         */
+        DUPLICATIONDATA(1001),
+
+        /**
          * 数据需要回执二次确认
          */
         RECEIPT(201),

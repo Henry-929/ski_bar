@@ -41,4 +41,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return null;
     }
+
+    @Override
+    public int insertUser(User user) {
+        int insert = userMapper.insert(user);
+        return insert;
+    }
+
+    @Override
+    public User searchUser(String username) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        User user = userMapper.selectOne(wrapper);
+        return user;
+    }
 }

@@ -16,4 +16,8 @@ public interface UserService extends IService<User> {
     //登录
     User login(String username, String password,String type);
 
+    int insertUser(User user);
+
+    User searchUser(String username);
+
 }

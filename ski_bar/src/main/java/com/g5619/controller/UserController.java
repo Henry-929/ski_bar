@@ -5,11 +5,7 @@ import com.g5619.config.Telnet;
 import com.g5619.entity.User;
 import com.g5619.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.annotation.Target;
 
@@ -41,7 +37,29 @@ public class UserController {
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("Incorrect account or password or identity");
     }
 
+    @PostMapping("/register")
+    public Telnet register(String username, String password, String gender,
+                           String email, String telephone, String type){
+        User seachUsername = userService.searchUser(username);
+        if (null != seachUsername){
+            return new Telnet().setCode(Telnet.CODE.DUPLICATIONDATA).setMsg("用户名已存在！");
+        }
 
+        User user = new User();
+        user.setUsername(username);
+        user.setType(type);
+        user.setTelephone(telephone);
+        user.setPassword(password);
+        user.setGender(gender);
+        user.setEmail(email);
 
+        int i = userService.insertUser(user);
+        return new Telnet().setCode(Telnet.CODE.OK).setMsg("操作成功！");
+    }
+
+    @GetMapping("/ab")
+    public Telnet ab(){
+        return new Telnet().setCode(Telnet.CODE.OK).setMsg("测试ab");
+    }
 
 }
