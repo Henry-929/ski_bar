@@ -7,8 +7,6 @@ import com.g5619.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.annotation.Target;
-
 /**
  * <p>
  *  前端控制器
@@ -27,8 +25,7 @@ public class UserController {
     /**
      * 登录
      */
-    @RequestMapping("login")
-    @ResponseBody
+    @RequestMapping("/login")
     public Telnet login(String username, String password, String type){
         User user=userService.login(username,password,type);
         if (user!=null){
@@ -54,6 +51,8 @@ public class UserController {
         user.setEmail(email);
 
         int i = userService.insertUser(user);
+        if (i < 1)
+            return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("服务器出错！");
         return new Telnet().setCode(Telnet.CODE.OK).setMsg("操作成功！");
     }
 
