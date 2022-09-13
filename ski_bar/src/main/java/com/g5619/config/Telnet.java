@@ -23,11 +23,6 @@ public class Telnet {
         NODATA(101),
 
         /**
-         *自定义CODE >1000 重复数据
-         */
-        DUPLICATIONDATA(1001),
-
-        /**
          * 数据需要回执二次确认
          */
         RECEIPT(201),
@@ -52,7 +47,14 @@ public class Telnet {
         /**
          * redis问题
          */
-        REDISERROR(602);
+        REDISERROR(602),
+
+        /**
+         *自定义CODE >1000 重复数据
+         */
+        DUPLICATIONDATA(1001),
+        // 用户登录认证错误 1002
+        AUTHENTICATIONERROR(1002);
 
         private Integer code;
 

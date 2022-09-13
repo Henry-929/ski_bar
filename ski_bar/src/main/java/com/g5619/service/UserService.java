@@ -18,6 +18,6 @@ public interface UserService extends IService<User> {
 
     int insertUser(User user);
 
-    User searchUser(String username);
+    User checkUserByName(String username);
 
 }

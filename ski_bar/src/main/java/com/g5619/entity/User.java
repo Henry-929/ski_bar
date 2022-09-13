@@ -42,5 +42,7 @@ public class User implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    private String roles;
 
+    private String perms;
 }
