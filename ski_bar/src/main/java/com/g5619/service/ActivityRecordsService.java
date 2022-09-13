@@ -3,6 +3,8 @@ package com.g5619.service;
 import com.g5619.entity.ActivityRecords;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类

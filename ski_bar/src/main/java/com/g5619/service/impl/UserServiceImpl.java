@@ -31,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User login(String username, String password, String type) {
         HashMap<String, Object> map = new HashMap<>();
-        // 自定义要查询
+        // 自定义用户查询
         map.put("username",username);
         map.put("password",password);
         map.put("type",type);

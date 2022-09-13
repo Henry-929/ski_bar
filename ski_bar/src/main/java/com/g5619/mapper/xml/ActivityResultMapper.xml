@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.g5619.mapper.ActivityResultMapper">
 
+    <select id="getGroupRankById" parameterType="long" resultType="RankVo" >
+        SELECT ski_bar.`activity`.`name`,
+               ar.`score`,
+               ar.`result_id`,
+               ski_bar.`user`.`username`,
+               ski_bar.`user`.`gender`,
+               ski_bar.`user`.`telephone`,
+               ski_bar.`user`.`email`,
+               ar.`time`
+        FROM ski_bar.`activity_result` AS ar
+        LEFT JOIN ski_bar.`activity` ON ar.`activity_id` = `activity`.`activity_id`
+        LEFT JOIN ski_bar.`user` ON ar.`user_id` = ski_bar.`user`.`user_id`
+        WHERE ar.`activity_id` = #{activityId}
+        ORDER BY score DESC;
+    </select>
+
+
 </mapper>

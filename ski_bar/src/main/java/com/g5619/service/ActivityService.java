@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ActivityService extends IService<Activity> {
 
+    //获得活动详情
+    Activity getActivityDetailById(Long activityId);
+
 }
