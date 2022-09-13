@@ -2,9 +2,12 @@ package com.g5619.config;
 
 import com.g5619.shiro.JwtFilter;
 import com.g5619.shiro.MyCredentialsMatcher;
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,10 +28,21 @@ public class ShiroConfig {
     private MyCredentialsMatcher myCredentialsMatcher;
 
     @Bean
-    public DefaultWebSecurityManager getDefaultSecurityManager() {
+    public DefaultWebSecurityManager getDefaultSecurityManager(DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         myRealm.setCredentialsMatcher(myCredentialsMatcher);
         securityManager.setRealm(myRealm);
+
+        securityManager.setSessionManager(sessionManager);
+
+        /*
+         * 关闭shiro自带的session
+         */
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        securityManager.setSubjectDAO(subjectDAO);
         return securityManager;
     }
 
@@ -76,6 +90,14 @@ public class ShiroConfig {
         DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
         creator.setProxyTargetClass(true);
         return creator;
+    }
+
+    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        // 去掉shiro登录时url里的JSESSIONID
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        return sessionManager;
     }
 
 }
