@@ -34,13 +34,13 @@ public class UserController {
      * 登录
      */
     @PostMapping("/login")
-    public Telnet login(String username, String password){
-        if (username == null || password == null) {
+    public Telnet login(@RequestBody User user){
+        if (user.getUsername() == null || user.getPassword() == null) {
             return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("账号密码不能为空");
         }
         Subject subject = SecurityUtils.getSubject();
-        String token = JwtUtil.createJWT(username, "back", "user", 1000 * 60 * 1);
-        JwtToken jwtToken = new JwtToken(token, password);
+        String token = JwtUtil.createJWT(user.getUsername(), "back", "user", 1000 * 60 * 1);
+        JwtToken jwtToken = new JwtToken(token, user.getPassword());
 
         try {
             subject.login(jwtToken);
