@@ -26,3 +26,17 @@ mybatis-plus:
 #      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
 #      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
+
+mail:
+  host: smtp.qq.com #邮件服务器地址
+  port: 465 #端口号
+  username: 1295184078@qq.com
+  password: nwzvcghhtpksfebi
+  default-encoding: UTF-8 #默认编码格式
+  properties:
+    mail:
+      debug: true #启动debug调试
+      smtp:
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory #SSL连接配置
+

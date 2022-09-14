@@ -57,5 +57,9 @@ public class Activity implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
+    private int level;
+
+    private String address;
+
 
 }

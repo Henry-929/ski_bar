@@ -12,8 +12,8 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author XXXXX-自己改
- * @since 2022-09-07
+ * @author Ruize Chen
+ * @since 2022-09-13
  */
 public interface ActivityResultService extends IService<ActivityResult> {
 

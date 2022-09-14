@@ -10,7 +10,9 @@
                ski_bar.`user`.`gender`,
                ski_bar.`user`.`telephone`,
                ski_bar.`user`.`email`,
-               ar.`time`
+               ar.`time`,
+               ski_bar.activity.level,
+               ski_bar.activity.address
         FROM ski_bar.`activity_result` AS ar
         LEFT JOIN ski_bar.`activity` ON ar.`activity_id` = `activity`.`activity_id`
         LEFT JOIN ski_bar.`user` ON ar.`user_id` = ski_bar.`user`.`user_id`

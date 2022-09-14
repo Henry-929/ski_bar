@@ -16,8 +16,8 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author XXXXX-自己改
- * @since 2022-09-07
+ * @author Ruize Chen
+ * @since 2022-09-13
  */
 @RestController
 @RequestMapping("/activity-result")

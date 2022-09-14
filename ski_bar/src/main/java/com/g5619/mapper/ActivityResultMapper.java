@@ -14,8 +14,8 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author XXXXX-自己改
- * @since 2022-09-07
+ * @author Ruize Chen
+ * @since 2022-09-13
  */
 @Repository
 public interface ActivityResultMapper extends BaseMapper<ActivityResult> {
