@@ -84,6 +84,29 @@ public class UserController {
         return new Telnet().setCode(Telnet.CODE.OK).setMsg("操作成功！");
     }
 
+    /**
+     * 获取用户信息列表
+     */
+    @GetMapping("myself")
+    public Telnet myself(Long userId){
+        return new Telnet().setCode(Telnet.CODE.OK).setData(userService.myself(userId)).setMsg("查询成功");
+    }
+
+    /**
+     * 更新用户信息
+     * @return
+     */
+    @PostMapping("/myself/update")
+    public Telnet updateMyself(Long userId,String username, String password, String email, String telephone){
+        int key = userService.updateMyself(userId, username, password, email, telephone);
+        if (key>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("更新个人数据成功！");
+        }
+        return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("查无此人!");
+
+
+    }
+
     @GetMapping("/ab")
     @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet ab(){

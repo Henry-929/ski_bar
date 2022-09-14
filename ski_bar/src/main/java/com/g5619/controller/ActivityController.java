@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,20 +31,17 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-
     /**
-     * 活动详情
+     * 根据活动id获取活动详情
      */
-    @GetMapping("/detail")
-    public Telnet getActivityDetailById(Long activityId){
+    @GetMapping("detail/{activityId}")
+    public Telnet getActivityDetailById(@PathVariable Long activityId){
         Activity activity = activityService.getActivityDetailById(activityId);
         if (activity!=null){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("查询成功").setData(activity);
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动？");
     }
-
-
 
     /**
      * 活动展示
@@ -55,7 +53,46 @@ public class ActivityController {
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("查询成功").setData(activityList);
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("当前还没有活动");
+    }
 
+    /**
+     * 添加活动
+     * Failed to convert value of type 'java.lang.String' to required type 'java.util.Date'
+     */
+    @GetMapping("/add")
+    public Telnet addActivity(String name, Date startTime,Date endTime,String address,int level,int allPerson){
+        int key = activityService.addActivity(name, startTime, endTime, address, level, allPerson);
+        if (key>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("添加成功");
+        }else if (key==-1){
+            return new Telnet().setCode(Telnet.CODE.ARTIFICIAL).setMsg("查询到有相同名字的活动，请换个名字重新添加");
+        }
+        return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("系统繁忙");
+    }
+
+    /**
+     * 管理员获得活动未审批列表
+     */
+    @GetMapping("UnApprovalList")
+    public Telnet AdministratorUnApprovalList(){
+        List<Activity> administratorUnApprovalList = activityService.getAdministratorUnApprovalList();
+        if (administratorUnApprovalList !=null){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("查询成功").setData(administratorUnApprovalList);
+        }
+        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("所有活动都已审批");
+    }
+
+    /**
+     * 加一个邮件通知事件
+     * 管理员审批活动
+     */
+    @GetMapping("approval/{activityId}")
+    public Telnet approvalActivity(@PathVariable Long activityId){
+        int key = activityService.approvalActivity(activityId);
+        if (key>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("修改成功，活动已被审批");
+        }
+        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动");
     }
 
 }

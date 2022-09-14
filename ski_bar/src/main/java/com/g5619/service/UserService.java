@@ -20,4 +20,10 @@ public interface UserService extends IService<User> {
 
     User checkUserByName(String username);
 
+    //获取用户信息
+    User myself(Long userId);
+
+    //更新用户
+    int updateMyself(Long userId,String username, String password, String email, String telephone);
+
 }

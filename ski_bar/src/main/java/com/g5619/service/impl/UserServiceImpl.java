@@ -55,4 +55,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectOne(wrapper);
         return user;
     }
+
+    @Override
+    public User myself(Long userId) {
+        return userMapper.selectById(userId);
+    }
+
+    @Override
+    public int updateMyself(Long userId, String username, String password, String email, String telephone) {
+        User user = userMapper.selectById(userId);
+        if (user !=null){
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setTelephone(telephone);
+            int key = userMapper.insert(user);
+            return 1;//更新个人数据成功
+        }
+        return -1; //查无此人
+    }
+
+
 }
