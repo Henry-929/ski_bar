@@ -4,6 +4,7 @@ package com.g5619.controller;
 //import com.g5619.config.MailService;
 import com.g5619.config.Telnet;
 import com.g5619.entity.Activity;
+import com.g5619.entity.res.AddActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.service.ActivityService;
 import com.g5619.service.GroupService;
@@ -59,9 +60,9 @@ public class ActivityController {
      * 添加活动
      * Failed to convert value of type 'java.lang.String' to required type 'java.util.Date'
      */
-    @GetMapping("/add")
-    public Telnet addActivity(String name, Date startTime,Date endTime,String address,int level,int allPerson){
-        int key = activityService.addActivity(name, startTime, endTime, address, level, allPerson);
+    @PostMapping("/add")
+    public Telnet addActivity(@RequestBody AddActivityReq addActivityReq){
+        int key = activityService.addActivity(addActivityReq);
         if (key>0){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("添加成功");
         }else if (key==-1){
@@ -69,6 +70,20 @@ public class ActivityController {
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("系统繁忙");
     }
+
+    /**
+     * 查询活动
+     */
+    @PostMapping("/search")
+    public Telnet searchActivies(String keywords){
+        List<Activity> activities = activityService.searchActivies(keywords);
+        if (activities !=null){
+            return new Telnet().setCode(Telnet.CODE.OK).setData(activities).setMsg("查找成功！");
+        }
+        return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("系统繁忙");
+    }
+
+
 
     /**
      * 管理员获得活动未审批列表

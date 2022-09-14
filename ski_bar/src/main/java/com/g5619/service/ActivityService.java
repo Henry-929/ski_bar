@@ -2,6 +2,7 @@ package com.g5619.service;
 
 import com.g5619.entity.Activity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.g5619.entity.res.AddActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 
 import java.util.Date;
@@ -17,6 +18,9 @@ import java.util.List;
  */
 public interface ActivityService extends IService<Activity> {
 
+    //查询活动
+    List<Activity> searchActivies(String keywords);
+
     //活动列表
     List<ActivityVo> getActivityList();
 
@@ -24,7 +28,7 @@ public interface ActivityService extends IService<Activity> {
     Activity getActivityDetailById(Long activityId);
 
     //添加活动
-    int addActivity(String name, Date startTime, Date endTime, String address, int level,int allPerson);
+    int addActivity(AddActivityReq addActivityReq);
 
     //管理员获得活动未审批列表
     List<Activity> getAdministratorUnApprovalList();

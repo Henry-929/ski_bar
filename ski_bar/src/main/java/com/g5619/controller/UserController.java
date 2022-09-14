@@ -2,6 +2,7 @@ package com.g5619.controller;
 
 import com.g5619.config.Telnet;
 import com.g5619.entity.User;
+import com.g5619.entity.res.UpdateUserReq;
 import com.g5619.service.UserService;
 import com.g5619.shiro.JwtToken;
 import com.g5619.utils.JwtUtil;
@@ -97,14 +98,12 @@ public class UserController {
      * @return
      */
     @PostMapping("/myself/update")
-    public Telnet updateMyself(Long userId,String username, String password, String email, String telephone){
-        int key = userService.updateMyself(userId, username, password, email, telephone);
+    public Telnet updateMyself(@RequestBody UpdateUserReq updateUserReq){
+        int key = userService.updateMyself(updateUserReq);
         if (key>0){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("更新个人数据成功！");
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("查无此人!");
-
-
     }
 
     @GetMapping("/ab")

@@ -2,6 +2,7 @@ package com.g5619.service;
 
 import com.g5619.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.g5619.entity.res.UpdateUserReq;
 
 /**
  * <p>
@@ -24,6 +25,6 @@ public interface UserService extends IService<User> {
     User myself(Long userId);
 
     //更新用户
-    int updateMyself(Long userId,String username, String password, String email, String telephone);
+    int updateMyself(UpdateUserReq updateUserReq);
 
 }

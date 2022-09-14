@@ -2,9 +2,11 @@ package com.g5619.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.g5619.entity.User;
+import com.g5619.entity.res.UpdateUserReq;
 import com.g5619.mapper.UserMapper;
 import com.g5619.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,15 +64,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public int updateMyself(Long userId, String username, String password, String email, String telephone) {
-        User user = userMapper.selectById(userId);
+    public int updateMyself(UpdateUserReq updateUserReq) {
+        User user = userMapper.selectById(updateUserReq.getUserId());
         if (user !=null){
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setEmail(email);
-            user.setTelephone(telephone);
-            int key = userMapper.insert(user);
-            return 1;//更新个人数据成功
+            User user1 = new User();
+            BeanUtils.copyProperties(updateUserReq,user1);
+            return userMapper.updateById(user1);//更新个人数据成功
         }
         return -1; //查无此人
     }

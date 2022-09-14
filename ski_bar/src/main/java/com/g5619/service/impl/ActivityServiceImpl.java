@@ -1,16 +1,19 @@
 package com.g5619.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.g5619.entity.Activity;
+import com.g5619.entity.res.AddActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.mapper.ActivityMapper;
 import com.g5619.service.ActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -27,6 +30,18 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     ActivityMapper activityMapper;
 
     @Override
+    public List<Activity> searchActivies(String keywords) {
+        QueryWrapper<Activity> activityQueryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(keywords)){
+            activityQueryWrapper.lambda()
+                    .like(Activity::getActivityId,keywords).or()
+                    .like(Activity::getAddress,keywords).or()
+                    .like(Activity::getName,keywords);
+        }
+        return activityMapper.selectList(activityQueryWrapper);
+    }
+
+    @Override
     public List<ActivityVo> getActivityList() {
         List<ActivityVo> activityList = activityMapper.getActivityList();
         return activityList;
@@ -38,22 +53,28 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     }
 
     @Override
-    public int addActivity(String name, Date startTime, Date endTime, String address, int level,int allPerson) {
+    public int addActivity(AddActivityReq addActivityReq) {
         Activity activity1 = new Activity();
-        activity1.setName(name);
+        activity1.setName(addActivityReq.getName());
+
         HashMap<String, Object> map = new HashMap<>();
-        map.put("name",name);
+        map.put("name",addActivityReq.getName());
+
         List<Activity> activities = activityMapper.selectByMap(map);
-        if (activities != null){
+
+        if (activities.size()>0){
             return -1; //代表着重名，添加失败
         }else {
             Activity activityinsert = new Activity();
-            activityinsert.setName(name);
-            activityinsert.setAddress(address);
-            activityinsert.setStartTime(startTime);
-            activityinsert.setEndTime(endTime);
-            activityinsert.setLevel(level);
-            activityinsert.setAllPerson(allPerson);
+            activityinsert.setName(addActivityReq.getName());
+            activityinsert.setAddress(addActivityReq.getAddress());
+
+            activityinsert.setStartTime(addActivityReq.getStartTime());
+            activityinsert.setEndTime(addActivityReq.getEndTime());
+
+
+            activityinsert.setLevel(addActivityReq.getLevel());
+            activityinsert.setAllPerson(addActivityReq.getAllPerson());
             activityinsert.setRemainPerson(0);
             activityinsert.setState(0);
             activityinsert.setApprove(0);
