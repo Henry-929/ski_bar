@@ -4,17 +4,12 @@ package com.g5619.controller;
 //import com.g5619.config.MailService;
 import com.g5619.config.Telnet;
 import com.g5619.entity.Activity;
-import com.g5619.entity.res.AddActivityReq;
+import com.g5619.entity.res.CreateActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.service.ActivityService;
-import com.g5619.service.GroupService;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,12 +52,11 @@ public class ActivityController {
     }
 
     /**
-     * 添加活动
-     * Failed to convert value of type 'java.lang.String' to required type 'java.util.Date'
+     * 创建活动
      */
-    @PostMapping("/add")
-    public Telnet addActivity(@RequestBody AddActivityReq addActivityReq){
-        int key = activityService.addActivity(addActivityReq);
+    @PostMapping("/create")
+    public Telnet createActivity(@RequestBody CreateActivityReq createActivityReq){
+        int key = activityService.createActivity(createActivityReq);
         if (key>0){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("添加成功");
         }else if (key==-1){
@@ -85,29 +79,6 @@ public class ActivityController {
 
 
 
-    /**
-     * 管理员获得活动未审批列表
-     */
-    @GetMapping("UnApprovalList")
-    public Telnet AdministratorUnApprovalList(){
-        List<Activity> administratorUnApprovalList = activityService.getAdministratorUnApprovalList();
-        if (administratorUnApprovalList !=null){
-            return new Telnet().setCode(Telnet.CODE.OK).setMsg("查询成功").setData(administratorUnApprovalList);
-        }
-        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("所有活动都已审批");
-    }
 
-    /**
-     * 加一个邮件通知事件
-     * 管理员审批活动
-     */
-    @GetMapping("approval/{activityId}")
-    public Telnet approvalActivity(@PathVariable Long activityId){
-        int key = activityService.approvalActivity(activityId);
-        if (key>0){
-            return new Telnet().setCode(Telnet.CODE.OK).setMsg("修改成功，活动已被审批");
-        }
-        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动");
-    }
 
 }

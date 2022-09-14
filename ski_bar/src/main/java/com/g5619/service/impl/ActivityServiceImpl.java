@@ -2,15 +2,13 @@ package com.g5619.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.g5619.entity.Activity;
-import com.g5619.entity.res.AddActivityReq;
+import com.g5619.entity.res.CreateActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.mapper.ActivityMapper;
 import com.g5619.service.ActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -53,12 +51,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     }
 
     @Override
-    public int addActivity(AddActivityReq addActivityReq) {
+    public int createActivity(CreateActivityReq createActivityReq) {
         Activity activity1 = new Activity();
-        activity1.setName(addActivityReq.getName());
+        activity1.setName(createActivityReq.getName());
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("name",addActivityReq.getName());
+        map.put("name", createActivityReq.getName());
 
         List<Activity> activities = activityMapper.selectByMap(map);
 
@@ -66,15 +64,15 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             return -1; //代表着重名，添加失败
         }else {
             Activity activityinsert = new Activity();
-            activityinsert.setName(addActivityReq.getName());
-            activityinsert.setAddress(addActivityReq.getAddress());
+            activityinsert.setName(createActivityReq.getName());
+            activityinsert.setAddress(createActivityReq.getAddress());
 
-            activityinsert.setStartTime(addActivityReq.getStartTime());
-            activityinsert.setEndTime(addActivityReq.getEndTime());
+            activityinsert.setStartTime(createActivityReq.getStartTime());
+            activityinsert.setEndTime(createActivityReq.getEndTime());
 
 
-            activityinsert.setLevel(addActivityReq.getLevel());
-            activityinsert.setAllPerson(addActivityReq.getAllPerson());
+            activityinsert.setLevel(createActivityReq.getLevel());
+            activityinsert.setAllPerson(createActivityReq.getAllPerson());
             activityinsert.setRemainPerson(0);
             activityinsert.setState(0);
             activityinsert.setApprove(0);
