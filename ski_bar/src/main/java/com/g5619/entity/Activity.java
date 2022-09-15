@@ -29,7 +29,6 @@ public class Activity implements Serializable {
     @TableId(value = "activity_id", type = IdType.ASSIGN_ID)
     private Long activityId;
 
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private Long userId;
 
     private String name;
