@@ -59,7 +59,7 @@ public class AdminController {
      * 获取所有用户信息列表
      * @return
      */
-    @PostMapping("allusers")
+    @GetMapping("allusers")
     public Telnet getAllUsers(){
         List<UserVo> allUsers = userService.getAllUsers();
         if (allUsers.size()>0){

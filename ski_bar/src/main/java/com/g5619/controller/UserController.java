@@ -56,20 +56,19 @@ public class UserController {
      * 注册
      */
     @PostMapping("/register")
-    public Telnet register(String username, String password, String gender,
-                           String email, String telephone){
-        User seachUsername = userService.checkUserByName(username);
+    public Telnet register(@RequestBody User userAccount){
+        User seachUsername = userService.checkUserByName(userAccount.getUsername());
         if (null != seachUsername){
             return new Telnet().setCode(Telnet.CODE.DUPLICATIONDATA).setMsg("用户名已存在！");
         }
 
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(userAccount.getUsername());
         user.setType("user");
-        user.setTelephone(telephone);
-        user.setPassword(StringUtil.md5(password + username));
-        user.setGender(gender);
-        user.setEmail(email);
+        user.setTelephone(userAccount.getTelephone());
+        user.setPassword(StringUtil.md5(userAccount.getPassword() + userAccount.getUsername()));
+        user.setGender(userAccount.getGender());
+        user.setEmail(userAccount.getEmail());
         user.setRoles("user");
         user.setPerms("user:visit");
 

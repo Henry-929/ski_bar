@@ -30,7 +30,7 @@ public class ActivityController {
     /**
      * 根据活动id获取活动详情
      */
-    @GetMapping("detail/{activityId}")
+    @GetMapping("/detail/{activityId}")
     public Telnet getActivityDetailById(@PathVariable Long activityId){
         Activity activity = activityService.getActivityDetailById(activityId);
         if (activity!=null){
@@ -79,8 +79,8 @@ public class ActivityController {
     /**
      * 查询活动
      */
-    @PostMapping("/search")
-    public Telnet searchActivies(String keywords){
+    @GetMapping("/search/{keywords}")
+    public Telnet searchActivies(@PathVariable("keywords") String keywords){
         List<Activity> activities = activityService.searchActivies(keywords);
         if (activities !=null){
             return new Telnet().setCode(Telnet.CODE.OK).setData(activities).setMsg("查找成功！");
