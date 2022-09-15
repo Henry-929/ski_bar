@@ -14,5 +14,7 @@ import java.util.List;
  * @since 2022-09-07
  */
 public interface ActivityRecordsService extends IService<ActivityRecords> {
+    //退出活动
+    int exitActivity(Long userId, Long activityId);
 
 }

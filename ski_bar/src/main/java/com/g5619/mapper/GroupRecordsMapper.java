@@ -14,5 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface GroupRecordsMapper extends BaseMapper<GroupRecords> {
+    int deleteuseringroup(Long userId);
 
 }

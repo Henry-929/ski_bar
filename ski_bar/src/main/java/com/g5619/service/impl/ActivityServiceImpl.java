@@ -2,16 +2,23 @@ package com.g5619.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.g5619.entity.Activity;
+import com.g5619.entity.ActivityRecords;
+import com.g5619.entity.GroupRecords;
+import com.g5619.entity.User;
 import com.g5619.entity.res.CreateActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.mapper.ActivityMapper;
+import com.g5619.mapper.ActivityRecordsMapper;
 import com.g5619.service.ActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+
+import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
 
 /**
  * <p>
@@ -26,6 +33,9 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
 
     @Autowired
     ActivityMapper activityMapper;
+
+    @Autowired
+    ActivityRecordsMapper activityRecordsMapper;
 
     @Override
     public List<Activity> searchActivies(String keywords) {
@@ -99,6 +109,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
 
     /**
      * 审批活动
+     * 审批完对活动创建者进行邮件发送
      * @param activityId
      * @return
      */
@@ -110,5 +121,38 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             return 1;//成功修改
         }
         return -1;//查无数据
+    }
+
+    /**
+     * 删除活动
+     * @param activityId
+     * @return
+     */
+    @Override
+    public int delActivity(Long activityId) {
+        Activity activity = activityMapper.selectById(activityId);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("activity_id",activityId);
+        List<ActivityRecords> activityRecords = activityRecordsMapper.selectByMap(map);
+        //删记录表activity数据
+        if (activityRecords.size()>0){
+            activityRecordsMapper.deleteactivityinactivityrecord(activityId);
+        }
+        if (activity!=null){
+            //删活动表activity数据
+            return activityMapper.deleteById(activityId);//删除成功
+        }
+        return -1;//数据库出错 查无此数据
+    }
+
+    @Override
+    public int editActivity(ActivityVo activityVo) {
+        Activity activity = activityMapper.selectById(activityVo.getActivityId());
+        if (activity !=null){
+            Activity activity1 = new Activity();
+            BeanUtils.copyProperties(activityVo,activity1);
+            return activityMapper.updateById(activity1);//更新活动成功
+        }
+        return -1; //数据库错误找不到此活动
     }
 }

@@ -2,13 +2,12 @@ package com.g5619.controller.admin;
 
 import com.g5619.config.Telnet;
 import com.g5619.entity.Activity;
+import com.g5619.entity.vo.UserVo;
 import com.g5619.service.ActivityService;
+import com.g5619.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,11 +21,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin")
-@RequiresPermissions("admin:manage")
+//@RequiresPermissions("admin:manage")
 public class AdminController {
 
     @Autowired
     ActivityService activityService;
+    @Autowired
+    UserService userService;
 
     /**
      * 管理员获得活动未审批列表
@@ -51,6 +52,33 @@ public class AdminController {
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("修改成功，活动已被审批");
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动");
+    }
+
+
+    /**
+     * 获取所有用户信息列表
+     * @return
+     */
+    @PostMapping("allusers")
+    public Telnet getAllUsers(){
+        List<UserVo> allUsers = userService.getAllUsers();
+        if (allUsers.size()>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setData(allUsers).setMsg("查询成功");
+        }
+        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没有用户");
+    }
+
+    /**
+     * 删除用户
+     * @return
+     */
+    @GetMapping("/{userId}")
+    public Telnet delUser(@PathVariable Long userId){
+        int key = userService.delUser(userId);
+        if (key >0){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("删除成功");
+        }
+        return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("查无此人!");
     }
 
     @GetMapping("/ab")

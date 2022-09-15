@@ -35,4 +35,10 @@ public interface ActivityService extends IService<Activity> {
     //管理员审批活动
     int approvalActivity(Long activityId);
 
+    //删除活动
+    int delActivity(Long activityId);
+
+    //修改活动
+    int editActivity(ActivityVo activityVo);
+
 }

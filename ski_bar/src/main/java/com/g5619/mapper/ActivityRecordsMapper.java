@@ -14,5 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ActivityRecordsMapper extends BaseMapper<ActivityRecords> {
+   int deleteactivityinactivityrecord(Long activityId);
 
 }

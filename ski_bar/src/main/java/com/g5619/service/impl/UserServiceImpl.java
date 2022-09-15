@@ -1,8 +1,11 @@
 package com.g5619.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.g5619.entity.GroupRecords;
 import com.g5619.entity.User;
 import com.g5619.entity.res.UpdateUserReq;
+import com.g5619.entity.vo.UserVo;
+import com.g5619.mapper.GroupRecordsMapper;
 import com.g5619.mapper.UserMapper;
 import com.g5619.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,6 +29,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    GroupRecordsMapper groupRecordsMapper;
 
     /**
      * 登录
@@ -72,6 +77,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return userMapper.updateById(user1);//更新个人数据成功
         }
         return -1; //查无此人
+    }
+
+    @Override
+    public List<UserVo> getAllUsers() {
+        return userMapper.getAllUsers();
+    }
+
+    @Override
+    public int delUser(Long userId) {
+        User user = userMapper.selectById(userId);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_id",userId);
+        List<GroupRecords> groupRecords = groupRecordsMapper.selectByMap(map);
+        if (groupRecords.size()>0){
+            groupRecordsMapper.deleteuseringroup(userId);
+        }
+        if (user !=null){
+            return userMapper.deleteById(userId);
+        }
+        return -1;
     }
 
 

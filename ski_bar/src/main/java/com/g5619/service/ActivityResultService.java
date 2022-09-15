@@ -20,4 +20,6 @@ public interface ActivityResultService extends IService<ActivityResult> {
     //组内排名
     List<RankVo> getGroupRankById(Long activityId);
 
+
+
 }

@@ -86,7 +86,7 @@ public class UserController {
     }
 
     /**
-     * 获取用户信息列表
+     * 获取用户个人信息列表
      */
     @GetMapping("myself")
     public Telnet myself(Long userId){
@@ -105,6 +105,8 @@ public class UserController {
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("查无此人!");
     }
+
+
 
     @GetMapping("/ab")
     @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)

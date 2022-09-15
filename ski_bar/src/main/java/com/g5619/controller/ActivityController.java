@@ -38,6 +38,17 @@ public class ActivityController {
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动？");
     }
+    /**
+     * 修改活动
+     */
+    @PostMapping("/edit")
+    public Telnet editActivity(ActivityVo activityVo){
+        int key = activityService.editActivity(activityVo);
+        if(key>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("活动更新成攻");
+        }
+        return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("数据库出错");
+    }
 
     /**
      * 活动展示
@@ -75,6 +86,15 @@ public class ActivityController {
             return new Telnet().setCode(Telnet.CODE.OK).setData(activities).setMsg("查找成功！");
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("系统繁忙");
+    }
+
+    /**
+     * 删除活动
+     */
+    @GetMapping("/{activityId}")
+    public Telnet delActivity(@PathVariable Long activityId){
+        return new Telnet().setCode(Telnet.CODE.OK)
+                            .setData(activityService.delActivity(activityId)).setMsg("删除成功");
     }
 
 
