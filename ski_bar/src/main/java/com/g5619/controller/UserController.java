@@ -105,6 +105,16 @@ public class UserController {
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("查无此人!");
     }
 
+//    /**
+//     * 用户自己的比赛
+//     * @param userId
+//     * @return
+//     */
+//    @PostMapping("myrank")
+//    public Telnet myCompetition(Long userId){
+//
+//    }
+
 
 
     @GetMapping("/ab")

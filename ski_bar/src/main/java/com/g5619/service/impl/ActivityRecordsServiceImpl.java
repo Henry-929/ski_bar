@@ -1,9 +1,11 @@
 package com.g5619.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.g5619.entity.Activity;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
 import com.g5619.entity.User;
+import com.g5619.mapper.ActivityMapper;
 import com.g5619.mapper.ActivityRecordsMapper;
 import com.g5619.mapper.ActivityResultMapper;
 import com.g5619.service.ActivityRecordsService;
@@ -30,6 +32,8 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
     ActivityRecordsMapper activityRecordsMapper;
     @Autowired
     ActivityResultMapper activityResultMapper;
+    @Autowired
+    ActivityMapper activityMapper;
 
     @Override
     public int exitActivity(Long userId, Long activityId) {
@@ -49,5 +53,24 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
         wrapperR.eq("user_id",userId);
         wrapperR.eq("activity_id",activityId);
         return activityResultMapper.delete(wrapperR);
+    }
+
+    @Override
+    public int addActivity(Long userId, Long activityId) {
+        Activity activity = activityMapper.selectById(activityId);
+        if (activity.getApprove()!=0){
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("user_id",userId);
+            map.put("activity_id",activityId);
+            List<ActivityRecords> activityRecords = activityRecordsMapper.selectByMap(map);
+            if (activityRecords.size()>0){
+                return -2;//你已参加该活动
+            }
+            ActivityRecords activityRecords1 = new ActivityRecords();
+            activityRecords1.setUserId(userId);
+            activityRecords1.setActivityId(activityId);
+            return activityRecordsMapper.insert(activityRecords1);
+        }
+        return -1;//活动还未被审批
     }
 }

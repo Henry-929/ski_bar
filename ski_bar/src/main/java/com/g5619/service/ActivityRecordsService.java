@@ -17,4 +17,7 @@ public interface ActivityRecordsService extends IService<ActivityRecords> {
     //退出活动
     int exitActivity(Long userId, Long activityId);
 
+    //添加活动
+    int addActivity(Long userId, Long activityId);
+
 }
