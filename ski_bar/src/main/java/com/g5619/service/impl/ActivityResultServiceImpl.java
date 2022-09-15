@@ -3,6 +3,7 @@ package com.g5619.service.impl;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
 import com.g5619.entity.vo.RankVo;
+import com.g5619.entity.vo.UserActivityVo;
 import com.g5619.mapper.ActivityRecordsMapper;
 import com.g5619.mapper.ActivityResultMapper;
 import com.g5619.service.ActivityResultService;
@@ -33,5 +34,14 @@ public class ActivityResultServiceImpl extends ServiceImpl<ActivityResultMapper,
         map.put("activity_id",activityId);
         List<RankVo> rank = activityResultMapper.getGroupRankById(activityId);
         return rank;
+    }
+
+    @Override
+    public List<UserActivityVo> myCompetition(Long userId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("user_id",userId);
+        List<ActivityResult> activityResults = activityResultMapper.selectByMap(map);
+
+        return null;
     }
 }

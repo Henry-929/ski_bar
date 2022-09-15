@@ -3,6 +3,7 @@ package com.g5619.service;
 import com.g5619.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.g5619.entity.res.UpdateUserReq;
+import com.g5619.entity.vo.UserActivityVo;
 import com.g5619.entity.vo.UserVo;
 
 import java.util.List;
@@ -35,5 +36,7 @@ public interface UserService extends IService<User> {
 
     //删除用户
     int delUser(Long userId);
+
+
 
 }

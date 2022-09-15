@@ -2,11 +2,17 @@ package com.g5619.controller.admin;
 
 import com.g5619.config.Telnet;
 import com.g5619.entity.Activity;
+import com.g5619.entity.User;
 import com.g5619.entity.vo.UserVo;
 import com.g5619.service.ActivityService;
+import com.g5619.service.EmailService;
 import com.g5619.service.UserService;
+import com.g5619.utils.Email;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +34,8 @@ public class AdminController {
     ActivityService activityService;
     @Autowired
     UserService userService;
-
+    @Autowired
+    EmailService emailService;
     /**
      * 管理员获得活动未审批列表
      */
@@ -48,7 +55,10 @@ public class AdminController {
     @GetMapping("approval/{activityId}")
     public Telnet approvalActivity(@PathVariable Long activityId){
         int key = activityService.approvalActivity(activityId);
+        Activity activityDetailById = activityService.getActivityDetailById(activityId);
+        User user = userService.getById(activityDetailById.getUserId());
         if (key>0){
+            emailService.contextLoads(user.getEmail());
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("修改成功，活动已被审批");
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动");
@@ -85,4 +95,7 @@ public class AdminController {
     public Telnet adminAb(){
         return new Telnet().setCode(Telnet.CODE.OK).setMsg("测试管理员ab");
     }
+
+
+
 }
