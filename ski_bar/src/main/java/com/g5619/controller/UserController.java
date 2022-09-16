@@ -87,7 +87,7 @@ public class UserController {
     /**
      * 获取用户个人信息列表
      */
-    @GetMapping("myself")
+    @GetMapping("/myself")
     public Telnet myself(Long userId){
         return new Telnet().setCode(Telnet.CODE.OK).setData(userService.myself(userId)).setMsg("查询成功");
     }
