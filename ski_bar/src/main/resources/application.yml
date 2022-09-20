@@ -25,9 +25,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ski_bar?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: Zzy190015
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 
 logging:
   level:

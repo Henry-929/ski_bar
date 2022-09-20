@@ -15,4 +15,23 @@
         FROM  ski_bar.`user`
     </select>
 
+    <select id="getUserPreviousActivity" parameterType="long" resultType="userPreviousActivityVo">
+        SELECT ski_bar.`activity`.`activity_id`,
+               ski_bar.`activity`.`name`,
+               ski_bar.`activity`.`description`,
+               ski_bar.`activity`.`all_person`,
+               ski_bar.`activity`.`remain_person`,
+               ski_bar.`activity`.`start_time`,
+               ski_bar.`activity`.`end_time`,
+               ski_bar.`activity`.`level`,
+               ski_bar.`activity`.`address`,
+               ski_bar.`activity_result`.`score`,
+               ski_bar.`activity`.`user_id`,
+               ski_bar.`activity_result`.`result_id`
+        FROM ski_bar.`activity`
+        LEFT JOIN ski_bar.`activity_result`
+        ON ski_bar.`activity`.`activity_id` = ski_bar.`activity_result`.`result_id`
+        WHERE ski_bar.`activity`.`user_id` = #{userId}
+    </select>
+
 </mapper>

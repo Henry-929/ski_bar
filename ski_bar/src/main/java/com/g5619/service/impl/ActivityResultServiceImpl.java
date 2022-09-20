@@ -1,16 +1,22 @@
 package com.g5619.service.impl;
 
+import com.g5619.entity.Activity;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
+import com.g5619.entity.res.GradeReq;
 import com.g5619.entity.vo.RankVo;
 import com.g5619.entity.vo.UserActivityVo;
 import com.g5619.mapper.ActivityRecordsMapper;
 import com.g5619.mapper.ActivityResultMapper;
 import com.g5619.service.ActivityResultService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,5 +49,18 @@ public class ActivityResultServiceImpl extends ServiceImpl<ActivityResultMapper,
         List<ActivityResult> activityResults = activityResultMapper.selectByMap(map);
 
         return null;
+    }
+
+    @Override
+    public boolean addGrade(List<GradeReq> gradeList) {
+        List<ActivityResult> activityResults = new ArrayList<>();
+        for (GradeReq gradeReq : gradeList) {
+            ActivityResult activityResult = new ActivityResult();
+            activityResult.setActivityId(gradeReq.getActivityId());
+            activityResult.setUserId(gradeReq.getUserId());
+            activityResult.setScore(gradeReq.getScore());
+            activityResults.add(activityResult);
+        }
+        return this.saveBatch(activityResults);
     }
 }

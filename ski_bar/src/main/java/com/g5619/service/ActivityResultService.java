@@ -3,6 +3,7 @@ package com.g5619.service;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.g5619.entity.res.GradeReq;
 import com.g5619.entity.vo.RankVo;
 import com.g5619.entity.vo.UserActivityVo;
 
@@ -23,6 +24,9 @@ public interface ActivityResultService extends IService<ActivityResult> {
 
     //用户查询自己的比赛
     List<UserActivityVo> myCompetition(Long userId);
+
+    //批量添加成绩
+    boolean addGrade(List<GradeReq> gradeList);
 
 
 }
