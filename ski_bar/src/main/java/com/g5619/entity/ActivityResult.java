@@ -22,7 +22,7 @@ public class ActivityResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "result_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "result_id", type = IdType.AUTO)
     private Long resultId;
 
     private Long activityId;

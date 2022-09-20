@@ -2,10 +2,12 @@ package com.g5619.entity.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -22,7 +24,7 @@ public class ActivityVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "activity_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "activity_id", type = IdType.AUTO)
 
     private Long activityId;
 
@@ -37,5 +39,13 @@ public class ActivityVo implements Serializable {
     private Integer allPerson;
 
     private Integer remainPerson;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date startTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date endTime;
+
+
 
 }
