@@ -12,7 +12,7 @@ MySQL - 8.0.27 : Database - ski_bar
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ski_bar` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ski_bar` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `ski_bar`;
 
@@ -36,11 +36,11 @@ CREATE TABLE `activity` (
   `level` int DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `activity` */
 
-insert  into `activity`(`activity_id`,`user_id`,`name`,`description`,`all_person`,`remain_person`,`start_time`,`end_time`,`state`,`approve`,`create_time`,`update_time`,`level`,`address`) values 
+insert  into `activity`(`activity_id`,`user_id`,`name`,`description`,`all_person`,`remain_person`,`start_time`,`end_time`,`state`,`approve`,`create_time`,`update_time`,`level`,`address`) values
 (1,1,'niuniu','niuniuzi',5,4,'2022-09-14 18:01:24','2022-09-14 18:01:24',1,0,'2022-09-23 16:54:13','2022-09-21 16:54:16',1,'beijing'),
 (2,1,'das','fdsf',2,23,'2022-09-14 23:04:20','2022-09-14 23:04:20',1,0,'2022-09-22 14:47:58','2022-09-05 14:48:02',2,'shanghai'),
 (312,1,'213214','123',1,3,'2022-09-14 23:04:23','2022-09-14 23:04:23',3,0,'2022-08-31 14:50:09','2022-09-24 14:50:11',3,'shenzhen'),
@@ -56,7 +56,7 @@ CREATE TABLE `activity_records` (
   `user_id` bigint NOT NULL,
   `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `activity_records` */
 
@@ -71,11 +71,11 @@ CREATE TABLE `activity_result` (
   `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `score` int DEFAULT NULL,
   PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `activity_result` */
 
-insert  into `activity_result`(`result_id`,`activity_id`,`user_id`,`time`,`score`) values 
+insert  into `activity_result`(`result_id`,`activity_id`,`user_id`,`time`,`score`) values
 (1,1,1,'2022-09-13 17:22:45',97),
 (2,1,2,'2022-09-23 17:25:30',100),
 (3,1,3,'2022-09-22 17:25:38',80),
@@ -92,7 +92,7 @@ CREATE TABLE `group` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `group` */
 
@@ -105,7 +105,7 @@ CREATE TABLE `group_records` (
   `group_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `group_records` */
 
@@ -119,7 +119,7 @@ CREATE TABLE `message` (
   `send_user_id` bigint NOT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`message_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `message` */
 
@@ -139,12 +139,12 @@ CREATE TABLE `user` (
   `roles` varchar(32) DEFAULT NULL,
   `perms` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`username`,`password`,`gender`,`email`,`telephone`,`type`,`create_time`,`roles`,`perms`) values 
-(1,'ruize','123','1','qwedoqi@qq.com','123e1','1','2022-09-13 17:19:21','user','user:visit'),
+insert  into `user`(`user_id`,`username`,`password`,`gender`,`email`,`telephone`,`type`,`create_time`,`roles`,`perms`) values
+(1,'ruize','123','1','1295184078@qq.com','123e1','1','2022-09-13 17:19:21','user','user:visit'),
 (2,'zhangze','123','1','3213412@qq.com','1231241','1','2022-09-13 17:20:13','user',NULL),
 (3,'demoData','123','1','demoData','demoData','1','2022-09-13 17:20:34','user',NULL),
 (1567195276346888194,'oppo','cf4b8daea76471fbcb2364fd2d837c07','0','7702024@gmail','123sd','1','2022-09-07 00:57:26','user','user:visit'),

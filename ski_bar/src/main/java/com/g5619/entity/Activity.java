@@ -26,7 +26,7 @@ public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "activity_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "activity_id", type = IdType.AUTO)
     private Long activityId;
 
     private Long userId;

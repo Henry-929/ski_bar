@@ -24,7 +24,7 @@ public class Group implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "group_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "group_id", type = IdType.AUTO)
     private Long groupId;
 
     private String name;

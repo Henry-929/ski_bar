@@ -31,4 +31,6 @@ public class UserVo implements Serializable {
     private String roles;
 
     private String perms;
+
+    private int age;
 }

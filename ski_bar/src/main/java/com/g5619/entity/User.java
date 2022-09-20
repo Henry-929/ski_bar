@@ -24,7 +24,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "user_id", type = IdType.AUTO)
     private Long userId;
 
     private String username;
@@ -36,13 +36,15 @@ public class User implements Serializable {
     private String email;
 
     private String telephone;
-
-    private String type;
-
+    
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     private String roles;
 
     private String perms;
+
+    private int age;
+
+    private int level;
 }
