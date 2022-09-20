@@ -42,7 +42,7 @@ public class ActivityController {
      * 修改活动
      */
     @PostMapping("/edit")
-    public Telnet editActivity(ActivityVo activityVo){
+    public Telnet editActivity(@RequestBody ActivityVo activityVo){
         int key = activityService.editActivity(activityVo);
         if(key>0){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("活动更新成攻");
