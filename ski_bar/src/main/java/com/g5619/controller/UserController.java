@@ -15,6 +15,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 /**
  * <p>
  *  前端控制器
@@ -41,10 +43,15 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         String token = JwtUtil.createJWT(user.getUsername(), "back", "user", 1000 * 60 * 1);
         JwtToken jwtToken = new JwtToken(token, user.getPassword());
-
+        HashMap<String, Object> map = new HashMap<>();
         try {
             subject.login(jwtToken);
-            return new Telnet().setCode(Telnet.CODE.OK).setMsg("成功").setData(token);
+
+            User userFromDB = (User) subject.getPrincipal();
+            System.out.println("userFromDB is "+userFromDB.toString());
+            map.put("token", token);
+            map.put("user", userFromDB);
+            return new Telnet().setCode(Telnet.CODE.OK).setMsg("成功").setData(map);
         } catch (IncorrectCredentialsException ice) {
             return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("密码不正确");
         } catch (UnknownAccountException uae) {
@@ -58,19 +65,19 @@ public class UserController {
     @PostMapping("/register")
     public Telnet register(@RequestBody User userAccount){
         User seachUsername = userService.checkUserByName(userAccount.getUsername());
-        if (null != seachUsername){
+        if (null != seachUsername)
             return new Telnet().setCode(Telnet.CODE.DUPLICATIONDATA).setMsg("用户名已存在！");
-        }
 
         User user = new User();
         user.setUsername(userAccount.getUsername());
-        user.setType("user");
         user.setTelephone(userAccount.getTelephone());
         user.setPassword(StringUtil.md5(userAccount.getPassword() + userAccount.getUsername()));
         user.setGender(userAccount.getGender());
         user.setEmail(userAccount.getEmail());
         user.setRoles("user");
         user.setPerms("user:visit");
+        user.setAge(userAccount.getAge());
+        user.setLevel(userAccount.getLevel());
 
         int i = userService.insertUser(user);
         if (i < 1)
@@ -114,8 +121,6 @@ public class UserController {
 //    public Telnet myCompetition(Long userId){
 //
 //    }
-
-
 
     @GetMapping("/ab")
     @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)

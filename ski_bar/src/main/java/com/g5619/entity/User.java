@@ -36,9 +36,7 @@ public class User implements Serializable {
     private String email;
 
     private String telephone;
-
-    private String type;
-
+    
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
@@ -47,4 +45,6 @@ public class User implements Serializable {
     private String perms;
 
     private int age;
+
+    private int level;
 }
