@@ -10,12 +10,8 @@ import com.g5619.service.ActivityRecordsService;
 import com.g5619.service.EmailService;
 import com.g5619.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +39,8 @@ public class ActivityRecordsController {
     /**
      * 用户参加活动组
      */
-    @GetMapping("/add")
-    public Telnet addActivity(Long userId, Long activityId){
+    @GetMapping("/add/{userId}/{activityId}")
+    public Telnet addActivity(@PathVariable("userId") Long userId, @PathVariable("activityId") Long activityId){
         int key = activityRecordsService.addActivity(userId, activityId);
         User user = userService.getById(userId);
         if (key>0){
@@ -62,8 +58,8 @@ public class ActivityRecordsController {
      * 用户退出活动组
      * @return
      */
-    @GetMapping("exitactivity")
-    public Telnet exitActivity(Long userId, Long activityId) {
+    @GetMapping("/exitactivity/{userId}/{activityId}")
+    public Telnet exitActivity(@PathVariable("userId") Long userId, @PathVariable("activityId") Long activityId) {
         int key = activityRecordsService.exitActivity(userId, activityId);
         if (key > 0) {
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("退出活动成功");
