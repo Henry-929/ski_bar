@@ -63,11 +63,14 @@ public class ShiroConfig {
 //        filterMap.put("/index.html", "anon");
 //        filterMap.put("/fonts/**", "anon");
 //        filterMap.put("/favicon", "anon");
+        filterMap.put("/hello", "anon");
+        filterMap.put("/pages/**", "anon");
+        filterMap.put("/websocket/**", "anon");
 
         filterMap.put("/**", "jwt");
 
-        filterFactoryBean.setLoginUrl("/user/login");
-        filterFactoryBean.setUnauthorizedUrl("/noAuthorization");
+//        filterFactoryBean.setLoginUrl("/user/login");
+//        filterFactoryBean.setUnauthorizedUrl("/noAuthorization");
         filterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return filterFactoryBean;
     }
