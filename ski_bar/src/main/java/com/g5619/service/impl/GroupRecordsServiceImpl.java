@@ -17,4 +17,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class GroupRecordsServiceImpl extends ServiceImpl<GroupRecordsMapper, GroupRecords> implements GroupRecordsService {
 
+    
 }
