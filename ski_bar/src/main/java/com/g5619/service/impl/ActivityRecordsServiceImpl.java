@@ -48,6 +48,9 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
         } else{
             return -1;//都不在此活动
         }
+        Activity activity = activityMapper.selectById(activityId);
+        activity.setRemainPerson(activity.getRemainPerson()-1);
+        activityMapper.updateById(activity);
         //3.再把结果表删了
         QueryWrapper<ActivityResult> wrapperR = new QueryWrapper<>();
         wrapperR.eq("user_id",userId);
@@ -69,6 +72,9 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
             ActivityRecords activityRecords1 = new ActivityRecords();
             activityRecords1.setUserId(userId);
             activityRecords1.setActivityId(activityId);
+            Activity activity1 = activityMapper.selectById(activityId);
+            activity1.setRemainPerson(activity1.getRemainPerson()+1);
+            activityMapper.updateById(activity1);
             return activityRecordsMapper.insert(activityRecords1);
         }
         return -1;//活动还未被审批
