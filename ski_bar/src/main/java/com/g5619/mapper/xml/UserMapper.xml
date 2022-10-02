@@ -8,7 +8,6 @@
                `gender`,
                `email`,
                `telephone`,
-               `type`,
                `create_time`,
                `roles`,
                `perms`
