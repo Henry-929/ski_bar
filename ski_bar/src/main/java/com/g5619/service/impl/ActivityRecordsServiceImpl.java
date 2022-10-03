@@ -5,6 +5,7 @@ import com.g5619.entity.Activity;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
 import com.g5619.entity.User;
+import com.g5619.entity.vo.ActivityUserVo;
 import com.g5619.mapper.ActivityMapper;
 import com.g5619.mapper.ActivityRecordsMapper;
 import com.g5619.mapper.ActivityResultMapper;
@@ -78,5 +79,10 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
             return activityRecordsMapper.insert(activityRecords1);
         }
         return -1;//活动还未被审批
+    }
+
+    @Override
+    public List<ActivityUserVo> activityuser(Long activityId) {
+            return activityRecordsMapper.activityuser(activityId);
     }
 }

@@ -6,4 +6,18 @@
         WHERE `activity_id` = #{activityId}
     </delete>
 
+    <select id="activityuser" parameterType="long" resultType="ActivityUserVo" >
+        SELECT ski_bar.`activity_records`.`user_id`,
+               ski_bar.`user`.`username`,
+               ski_bar.`user`.`gender`,
+               ski_bar.`user`.`email`,
+               ski_bar.`user`.`telephone`,
+               ski_bar.`user`.`age`,
+               ski_bar.`user`.`level`
+        FROM ski_bar.`activity_records`
+                 LEFT JOIN ski_bar.`user`
+                           ON ski_bar.`activity_records`.`user_id` = `user`.`user_id`
+        WHERE `activity_id` = #{activityId}
+    </select>
+
 </mapper>

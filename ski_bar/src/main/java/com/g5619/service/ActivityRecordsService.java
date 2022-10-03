@@ -2,6 +2,7 @@ package com.g5619.service;
 
 import com.g5619.entity.ActivityRecords;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.g5619.entity.vo.ActivityUserVo;
 
 import java.util.List;
 
@@ -19,5 +20,8 @@ public interface ActivityRecordsService extends IService<ActivityRecords> {
 
     //添加活动
     int addActivity(Long userId, Long activityId);
+
+    //查询活动中所有用户
+    List<ActivityUserVo> activityuser(Long activityId);
 
 }

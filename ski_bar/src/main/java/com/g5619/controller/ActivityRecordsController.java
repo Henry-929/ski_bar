@@ -5,6 +5,7 @@ package com.g5619.controller;
 import com.g5619.config.Telnet;
 import com.g5619.entity.Activity;
 import com.g5619.entity.User;
+import com.g5619.entity.vo.ActivityUserVo;
 import com.g5619.entity.vo.UserPreviousActivityVo;
 import com.g5619.service.ActivityRecordsService;
 import com.g5619.service.EmailService;
@@ -61,7 +62,7 @@ public class ActivityRecordsController {
     @GetMapping("/exitactivity/{userId}/{activityId}")
     public Telnet exitActivity(@PathVariable("userId") Long userId, @PathVariable("activityId") Long activityId) {
         int key = activityRecordsService.exitActivity(userId, activityId);
-        if (key > 0) {
+        if (key != -1) {
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("退出活动成功");
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("你都不在这个活动当中玩你妈呢");
@@ -78,5 +79,18 @@ public class ActivityRecordsController {
             return new Telnet().setCode(Telnet.CODE.OK).setData(userPreviousActivity).setMsg("查询成功");
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没参加活动呢");
+    }
+
+    /**
+     * 获取活动中所有用户
+     */
+    @PostMapping("activityuser")
+    public Telnet Activityuser(Long activityId){
+        List<ActivityUserVo> activityuser = activityRecordsService.activityuser(activityId);
+        if (activityuser.size()>0){
+            return new Telnet().setCode(Telnet.CODE.OK).setData(activityuser).setMsg("查询成功");
+        }
+        return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没有人");
+
     }
 }
