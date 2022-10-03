@@ -84,8 +84,8 @@ public class ActivityRecordsController {
     /**
      * 获取活动中所有用户
      */
-    @PostMapping("activityuser")
-    public Telnet Activityuser(Long activityId){
+    @GetMapping("/activityuser/{activityId}")
+    public Telnet Activityuser(@PathVariable("activityId") Long activityId){
         List<ActivityUserVo> activityuser = activityRecordsService.activityuser(activityId);
         if (activityuser.size()>0){
             return new Telnet().setCode(Telnet.CODE.OK).setData(activityuser).setMsg("查询成功");
