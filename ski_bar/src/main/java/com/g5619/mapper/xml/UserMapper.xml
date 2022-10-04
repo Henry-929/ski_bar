@@ -25,12 +25,11 @@
                ski_bar.`activity`.`level`,
                ski_bar.`activity`.`address`,
                ski_bar.`activity_result`.`score`,
-               ski_bar.`activity`.`user_id`,
                ski_bar.`activity_result`.`result_id`
         FROM ski_bar.`activity`
         LEFT JOIN ski_bar.`activity_result`
         ON ski_bar.`activity`.`activity_id` = ski_bar.`activity_result`.`activity_id`
-        WHERE ski_bar.`activity`.`user_id` = #{userId}
+        WHERE ski_bar.`activity_result`.`user_id` = #{userId}
     </select>
 
 </mapper>
