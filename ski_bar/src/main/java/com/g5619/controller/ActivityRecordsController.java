@@ -71,8 +71,8 @@ public class ActivityRecordsController {
     /**
      * 用户过往的活动记录
      */
-    @PostMapping("userpreviousactivityrecord")
-    public Telnet userPreviousActivityRecord(Long userId){
+    @GetMapping("/userpreviousactivityrecord/{userId}")
+    public Telnet userPreviousActivityRecord(@PathVariable("userId") Long userId){
         List<UserPreviousActivityVo> userPreviousActivity =
                 userService.getUserPreviousActivity(userId);
         if (userPreviousActivity.size()>0){
