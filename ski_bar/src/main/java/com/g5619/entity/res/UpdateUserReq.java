@@ -10,4 +10,6 @@ public class UpdateUserReq {
     private String password;
     private String email;
     private String telephone;
+
+    private int age;
 }

@@ -29,7 +29,7 @@
                ski_bar.`activity_result`.`result_id`
         FROM ski_bar.`activity`
         LEFT JOIN ski_bar.`activity_result`
-        ON ski_bar.`activity`.`activity_id` = ski_bar.`activity_result`.`result_id`
+        ON ski_bar.`activity`.`activity_id` = ski_bar.`activity_result`.`activity_id`
         WHERE ski_bar.`activity`.`user_id` = #{userId}
     </select>
 
