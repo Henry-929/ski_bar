@@ -74,6 +74,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             return -1; //代表着重名，添加失败
         }else {
             Activity activityinsert = new Activity();
+            activityinsert.setUserId(createActivityReq.getUserId());
             activityinsert.setName(createActivityReq.getName());
             activityinsert.setAddress(createActivityReq.getAddress());
 
@@ -118,6 +119,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         Activity activity = activityMapper.selectById(activityId);
         if (activity !=null){
             activity.setApprove(1);
+            activityMapper.updateById(activity);
             return 1;//成功修改
         }
         return -1;//查无数据
