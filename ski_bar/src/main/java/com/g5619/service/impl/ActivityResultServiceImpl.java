@@ -61,6 +61,6 @@ public class ActivityResultServiceImpl extends ServiceImpl<ActivityResultMapper,
             activityResult.setScore(gradeReq.getScore());
             activityResults.add(activityResult);
         }
-        return this.saveBatch(activityResults);
+        return this.updateBatchById(activityResults);
     }
 }
