@@ -141,6 +141,8 @@ public class WebSocketServer {
             map3.put("number", userNumber);
             //发送的消息
             map3.put("textMessage", textMessage);
+            //私聊用户
+            map3.put("toUsername", tousername);
             //发送信息，所有人，通知谁下线了
             sendMessageTo(JSON.toJSONString(map3),tousername);
 
@@ -155,6 +157,8 @@ public class WebSocketServer {
             map4.put("number", userNumber);
             //发送的消息
             map4.put("textMessage", textMessage);
+            //私聊用户
+            map4.put("toUsername", tousername);
             //发送信息，所有人，通知谁下线了
             sendMessageTo(JSON.toJSONString(map4),username);
         }

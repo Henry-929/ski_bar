@@ -40,6 +40,7 @@ public class AdminController {
      * 管理员获得活动未审批列表
      */
     @GetMapping("UnApprovalList")
+    @RequiresPermissions("admin:manage")
     public Telnet AdministratorUnApprovalList(){
         List<Activity> administratorUnApprovalList = activityService.getAdministratorUnApprovalList();
         if (administratorUnApprovalList !=null){
@@ -53,6 +54,7 @@ public class AdminController {
      * 管理员审批活动
      */
     @GetMapping("approval/{activityId}")
+    @RequiresPermissions("admin:manage")
     public Telnet approvalActivity(@PathVariable Long activityId){
         int key = activityService.approvalActivity(activityId);
         Activity activityDetailById = activityService.getActivityDetailById(activityId);
@@ -70,6 +72,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("allusers")
+    @RequiresPermissions("admin:manage")
     public Telnet getAllUsers(){
         List<UserVo> allUsers = userService.getAllUsers();
         if (allUsers.size()>0){
@@ -83,6 +86,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("/{userId}")
+    @RequiresPermissions("admin:manage")
     public Telnet delUser(@PathVariable Long userId){
         int key = userService.delUser(userId);
         if (key >0){
@@ -92,6 +96,7 @@ public class AdminController {
     }
 
     @GetMapping("/ab")
+    @RequiresPermissions("admin:manage")
     public Telnet adminAb(){
         return new Telnet().setCode(Telnet.CODE.OK).setMsg("测试管理员ab");
     }
