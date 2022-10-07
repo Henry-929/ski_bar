@@ -22,7 +22,7 @@ public class MyCredentialsMatcher extends SimpleCredentialsMatcher {
         //获得数据库中的密码
         User user = (User) info.getPrincipals().getPrimaryPrincipal();
         //加盐加密
-        String salt = user.getUsername();
+        String salt = "aasd123viav9";
         String dbPassword=(String) info.getCredentials();
         //进行密码的比对
         return this.equals(StringUtil.md5(inPassword + salt), dbPassword);
