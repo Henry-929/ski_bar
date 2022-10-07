@@ -71,7 +71,7 @@ public class UserController {
         User user = new User();
         user.setUsername(userAccount.getUsername());
         user.setTelephone(userAccount.getTelephone());
-        user.setPassword(StringUtil.md5(userAccount.getPassword() + userAccount.getUsername()));
+        user.setPassword(StringUtil.md5(userAccount.getPassword() + "aasd123viav9"));
         user.setGender(userAccount.getGender());
         user.setEmail(userAccount.getEmail());
         user.setRoles("user");
