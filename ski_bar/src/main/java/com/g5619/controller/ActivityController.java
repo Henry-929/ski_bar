@@ -7,6 +7,8 @@ import com.g5619.entity.Activity;
 import com.g5619.entity.res.CreateActivityReq;
 import com.g5619.entity.vo.ActivityVo;
 import com.g5619.service.ActivityService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,7 @@ public class ActivityController {
      * 根据活动id获取活动详情
      */
     @GetMapping("/detail/{activityId}")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet getActivityDetailById(@PathVariable Long activityId){
         Activity activity = activityService.getActivityDetailById(activityId);
         if (activity!=null){
@@ -42,6 +45,7 @@ public class ActivityController {
      * 修改活动
      */
     @PostMapping("/edit")
+    @RequiresPermissions("admin:manage")
     public Telnet editActivity(@RequestBody ActivityVo activityVo){
         int key = activityService.editActivity(activityVo);
         if(key>0){
@@ -54,6 +58,7 @@ public class ActivityController {
      * 活动展示
      */
     @GetMapping("/list")
+    @RequiresPermissions("admin:manage")
     public Telnet activityList(){
         List<ActivityVo> activityList = activityService.getActivityList();
         if (activityList!=null){
@@ -66,6 +71,7 @@ public class ActivityController {
      * 创建活动
      */
     @PostMapping("/create")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet createActivity(@RequestBody CreateActivityReq createActivityReq){
         int key = activityService.createActivity(createActivityReq);
         if (key>0){
@@ -80,6 +86,7 @@ public class ActivityController {
      * 查询活动
      */
     @GetMapping("/search/{keywords}")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet searchActivies(@PathVariable("keywords") String keywords){
         List<Activity> activities = activityService.searchActivies(keywords);
         if (activities !=null){
@@ -92,6 +99,7 @@ public class ActivityController {
      * 删除活动
      */
     @GetMapping("/{activityId}")
+    @RequiresPermissions("admin:manage")
     public Telnet delActivity(@PathVariable Long activityId){
         return new Telnet().setCode(Telnet.CODE.OK)
                             .setData(activityService.delActivity(activityId)).setMsg("删除成功");

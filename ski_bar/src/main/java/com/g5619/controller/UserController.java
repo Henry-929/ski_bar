@@ -86,6 +86,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet logout() {
         SecurityUtils.getSubject().logout();
         return new Telnet().setCode(Telnet.CODE.OK).setMsg("操作成功！");
@@ -95,6 +96,7 @@ public class UserController {
      * 获取用户个人信息列表
      */
     @GetMapping("/myself")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet myself(Long userId){
         return new Telnet().setCode(Telnet.CODE.OK).setData(userService.myself(userId)).setMsg("查询成功");
     }
@@ -104,6 +106,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/myself/update")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet updateMyself(@RequestBody UpdateUserReq updateUserReq){
         int key = userService.updateMyself(updateUserReq);
         if (key>0){

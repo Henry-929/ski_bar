@@ -6,6 +6,8 @@ import com.g5619.entity.res.GradeReq;
 import com.g5619.entity.vo.RankVo;
 import com.g5619.service.ActivityRecordsService;
 import com.g5619.service.ActivityResultService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +35,7 @@ public class ActivityResultController {
      */
     @GetMapping("/rank")
     @ResponseBody
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet getGroupRankById(Long activityId){
         List<RankVo> groupRank= activityRecordsService.getGroupRankById(activityId);
         if (groupRank!=null){
@@ -45,6 +48,7 @@ public class ActivityResultController {
      * 添加成绩
      */
     @PostMapping("/grade")
+    @RequiresPermissions("admin:manage")
     public Telnet addGrade(@RequestBody List<GradeReq> gradeList){
         if (activityRecordsService.addGrade(gradeList)){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("插入成功");

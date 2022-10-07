@@ -10,6 +10,8 @@ import com.g5619.entity.vo.UserPreviousActivityVo;
 import com.g5619.service.ActivityRecordsService;
 import com.g5619.service.EmailService;
 import com.g5619.service.UserService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +43,7 @@ public class ActivityRecordsController {
      * 用户参加活动组
      */
     @GetMapping("/add/{userId}/{activityId}")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet addActivity(@PathVariable("userId") Long userId, @PathVariable("activityId") Long activityId){
         int key = activityRecordsService.addActivity(userId, activityId);
         User user = userService.getById(userId);
@@ -60,6 +63,7 @@ public class ActivityRecordsController {
      * @return
      */
     @GetMapping("/exitactivity/{userId}/{activityId}")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet exitActivity(@PathVariable("userId") Long userId, @PathVariable("activityId") Long activityId) {
         int key = activityRecordsService.exitActivity(userId, activityId);
         if (key != -1) {
@@ -72,6 +76,7 @@ public class ActivityRecordsController {
      * 用户过往的活动记录
      */
     @GetMapping("/userpreviousactivityrecord/{userId}")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet userPreviousActivityRecord(@PathVariable("userId") Long userId){
         List<UserPreviousActivityVo> userPreviousActivity =
                 userService.getUserPreviousActivity(userId);
@@ -85,6 +90,7 @@ public class ActivityRecordsController {
      * 获取活动中所有用户
      */
     @GetMapping("/activityuser/{activityId}")
+    @RequiresPermissions("admin:manage")
     public Telnet Activityuser(@PathVariable("activityId") Long activityId){
         List<ActivityUserVo> activityuser = activityRecordsService.activityuser(activityId);
         if (activityuser.size()>0){
