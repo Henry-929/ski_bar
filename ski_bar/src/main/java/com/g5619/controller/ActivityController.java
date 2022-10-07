@@ -58,7 +58,7 @@ public class ActivityController {
      * 活动展示
      */
     @GetMapping("/list")
-    @RequiresPermissions("admin:manage")
+    @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet activityList(){
         List<ActivityVo> activityList = activityService.getActivityList();
         if (activityList!=null){
