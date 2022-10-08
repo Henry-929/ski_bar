@@ -41,7 +41,7 @@ public class UserController {
             return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("账号密码不能为空");
         }
         Subject subject = SecurityUtils.getSubject();
-        String token = JwtUtil.createJWT(user.getUsername(), "back", "user", 1000 * 60 * 1);
+        String token = JwtUtil.createJWT(user.getUsername(), "back", "user", 1000 * 60 * 30);
         JwtToken jwtToken = new JwtToken(token, user.getPassword());
         HashMap<String, Object> map = new HashMap<>();
         try {
