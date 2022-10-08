@@ -29,6 +29,8 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
+
+    //a mlb
     /**
      * 根据活动id获取活动详情
      */
@@ -41,6 +43,8 @@ public class ActivityController {
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("查无此活动？");
     }
+
+
     /**
      * 修改活动
      */
@@ -54,6 +58,8 @@ public class ActivityController {
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("数据库出错");
     }
 
+
+    //b mlb
     /**
      * 活动展示
      */
@@ -61,7 +67,7 @@ public class ActivityController {
     @RequiresPermissions( value = {"user:visit","admin:manage"}, logical = Logical.OR)
     public Telnet activityList(){
         List<ActivityVo> activityList = activityService.getActivityList();
-        if (activityList!=null){
+        if (activityList.size()>0){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("查询成功").setData(activityList);
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("当前还没有活动");
@@ -95,6 +101,8 @@ public class ActivityController {
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("系统繁忙");
     }
 
+
+    //c mlb
     /**
      * 删除活动
      */

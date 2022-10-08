@@ -1,5 +1,6 @@
 package com.g5619.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.g5619.entity.Activity;
 import com.g5619.entity.ActivityRecords;
 import com.g5619.entity.ActivityResult;
@@ -54,8 +55,10 @@ public class ActivityResultServiceImpl extends ServiceImpl<ActivityResultMapper,
     @Override
     public boolean addGrade(List<GradeReq> gradeList) {
         List<ActivityResult> activityResults = new ArrayList<>();
+
         for (GradeReq gradeReq : gradeList) {
             ActivityResult activityResult = new ActivityResult();
+            activityResult.setResultId(gradeReq.getResultId());
             activityResult.setActivityId(gradeReq.getActivityId());
             activityResult.setUserId(gradeReq.getUserId());
             activityResult.setScore(gradeReq.getScore());

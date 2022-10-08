@@ -55,7 +55,6 @@ public class ActivityRecordsController {
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("你已参加该活动，请勿重复操作");
 
-
     }
 
     /**
@@ -86,6 +85,8 @@ public class ActivityRecordsController {
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没参加活动呢");
     }
 
+
+    //d mlb
     /**
      * 获取活动中所有用户
      */
@@ -97,6 +98,5 @@ public class ActivityRecordsController {
             return new Telnet().setCode(Telnet.CODE.OK).setData(activityuser).setMsg("查询成功");
         }
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没有人");
-
     }
 }

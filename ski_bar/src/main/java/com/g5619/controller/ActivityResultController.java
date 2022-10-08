@@ -48,7 +48,7 @@ public class ActivityResultController {
      * 添加成绩
      */
     @PostMapping("/grade")
-    @RequiresPermissions("admin:manage")
+//    @RequiresPermissions("admin:manage")
     public Telnet addGrade(@RequestBody List<GradeReq> gradeList){
         if (activityRecordsService.addGrade(gradeList)){
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("插入成功");

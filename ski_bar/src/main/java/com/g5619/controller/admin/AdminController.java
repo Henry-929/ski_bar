@@ -81,6 +81,7 @@ public class AdminController {
         return new Telnet().setCode(Telnet.CODE.NODATA).setMsg("还没有用户");
     }
 
+    //f mlb
     /**
      * 删除用户
      * @return

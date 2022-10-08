@@ -133,16 +133,17 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     @Override
     public int delActivity(Long activityId) {
         Activity activity = activityMapper.selectById(activityId);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("activity_id",activityId);
-        List<ActivityRecords> activityRecords = activityRecordsMapper.selectByMap(map);
-        //删记录表activity数据
-        if (activityRecords.size()>0){
-            activityRecordsMapper.deleteactivityinactivityrecord(activityId);
-        }
         if (activity!=null){
             //删活动表activity数据
             return activityMapper.deleteById(activityId);//删除成功
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("activity_id",activityId);
+        List<ActivityRecords> activityRecords = activityRecordsMapper.selectByMap(map);
+
+        //删记录表activity数据
+        if (activityRecords.size()>0){
+            activityRecordsMapper.deleteactivityinactivityrecord(activityId);
         }
         return -1;//数据库出错 查无此数据
     }

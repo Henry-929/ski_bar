@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Data
 public class GradeReq {
+    private Long resultId;
 
     private Long userId;
 
@@ -17,7 +18,6 @@ public class GradeReq {
     private Long activityId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @TableField(fill = FieldFill.INSERT)
     private Date time;
 
 }

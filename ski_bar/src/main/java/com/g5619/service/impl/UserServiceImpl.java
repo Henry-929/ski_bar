@@ -88,17 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public int delUser(Long userId) {
-        User user = userMapper.selectById(userId);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("user_id",userId);
-        List<GroupRecords> groupRecords = groupRecordsMapper.selectByMap(map);
-        if (groupRecords.size()>0){
-            groupRecordsMapper.deleteuseringroup(userId);
-        }
-        if (user !=null){
             return userMapper.deleteById(userId);
-        }
-        return -1;
     }
 
     @Override
