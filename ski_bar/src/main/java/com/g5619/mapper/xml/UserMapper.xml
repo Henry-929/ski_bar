@@ -10,7 +10,8 @@
                `telephone`,
                `create_time`,
                `roles`,
-               `perms`
+               `perms`,
+               `age`
         FROM  ski_bar.`user`
     </select>
 
