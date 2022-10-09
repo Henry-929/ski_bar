@@ -72,7 +72,7 @@ public class AdminController {
      * @return
      */
     @GetMapping("allusers")
-    @RequiresPermissions("admin:manage")
+//    @RequiresPermissions("admin:manage")
     public Telnet getAllUsers(){
         List<UserVo> allUsers = userService.getAllUsers();
         if (allUsers.size()>0){

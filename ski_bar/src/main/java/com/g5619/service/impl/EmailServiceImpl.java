@@ -15,8 +15,8 @@ public class EmailServiceImpl implements EmailService {
 
     public void contextLoads(String email){
             SimpleMailMessage message=new SimpleMailMessage();
-            message.setText("活动审批已通过");
-            message.setSubject("滑雪俱乐部活动通知");
+            message.setText("Activity approval passed");
+            message.setSubject("Notice of ski club activities");
             message.setTo(email);
             message.setFrom("1295184078@qq.com");  // 发件方
             javaMailSender.send(message);
@@ -25,8 +25,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void joinin(String email) {
         SimpleMailMessage message=new SimpleMailMessage();
-        message.setText("参加活动成功");
-        message.setSubject("滑雪俱乐部活动通知");
+        message.setText("Successfully participated in the activity");
+        message.setSubject("Notice of ski club activities");
         message.setTo(email);
         message.setFrom("1295184078@qq.com");  // 发件方
         javaMailSender.send(message);

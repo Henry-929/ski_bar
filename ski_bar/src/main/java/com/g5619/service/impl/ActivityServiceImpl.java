@@ -99,8 +99,6 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
      */
     @Override
     public List<Activity> getAdministratorUnApprovalList() {
-        Activity activity = new Activity();
-        activity.setApprove(0);
         HashMap<String, Object> map = new HashMap<>();
         map.put("approve",0);
         List<Activity> unapproveactivities = activityMapper.selectByMap(map);
