@@ -19,8 +19,7 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
 
-    //登录
-    User login(String username, String password,String type);
+//    User login(String username, String password);
 
     int insertUser(User user);
 

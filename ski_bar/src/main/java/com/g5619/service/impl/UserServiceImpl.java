@@ -34,23 +34,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     GroupRecordsMapper groupRecordsMapper;
 
-    /**
-     * 登录
-     */
-    @Override
-    public User login(String username, String password, String type) {
-        HashMap<String, Object> map = new HashMap<>();
-        // 自定义用户查询
-        map.put("username",username);
-        map.put("password",password);
-        map.put("type",type);
-        List<User> users = userMapper.selectByMap(map);
-        if (users.size()>0){
-            return users.get(0);
-        }
-        return null;
-    }
-
     @Override
     public int insertUser(User user) {
         int insert = userMapper.insert(user);
@@ -96,6 +79,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.getUserPreviousActivity(userId);
     }
 
-
+    //@Override
+//    public User login(String username, String password) {
+//        HashMap<String, Object> map = new HashMap<>();
+//        // 自定义用户查询
+//        map.put("username",username);
+//        map.put("password",password);
+//        List<User> users = userMapper.selectByMap(map);
+//        if (users.size()>0){
+//            return users.get(0);
+//        }
+//        return null;
+//    }
 
 }
