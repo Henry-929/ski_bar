@@ -86,10 +86,10 @@ class UserServiceImplTest {
     }
 
     /**
-     * test delete activity
+     * test delete User
      */
     @Test
-    void testDelActivity() {
+    void testDelUser() {
         //test the User is not in the database
         int i = userService.delUser(1L);
         Assertions.assertEquals(-1, i);
