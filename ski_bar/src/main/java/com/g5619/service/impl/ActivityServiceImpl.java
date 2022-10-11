@@ -81,7 +81,6 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             activityinsert.setStartTime(createActivityReq.getStartTime());
             activityinsert.setEndTime(createActivityReq.getEndTime());
 
-
             activityinsert.setLevel(createActivityReq.getLevel());
             activityinsert.setAllPerson(createActivityReq.getAllPerson());
             activityinsert.setRemainPerson(0);

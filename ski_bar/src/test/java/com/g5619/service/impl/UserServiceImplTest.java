@@ -1,6 +1,8 @@
 package com.g5619.service.impl;
 
 import com.g5619.entity.User;
+import com.g5619.entity.res.UpdateUserReq;
+import com.g5619.mapper.UserMapper;
 import com.g5619.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,10 @@ class UserServiceImplTest {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+
 
     @Test
     void testRegister() {
@@ -39,4 +45,44 @@ class UserServiceImplTest {
 
     }
 
+
+
+
+    @Test
+    void testupdateMyself() {
+        //1.insert a new user
+        User user = new User();
+        user.setUsername("previoustestusername");
+        user.setTelephone("4654");
+        user.setPassword("previoustest@testmail.com");
+        user.setGender("1");
+        user.setEmail("previoustest@testmail.com");
+        user.setRoles("1");
+        user.setPerms("user:visit");
+        user.setAge(66);
+        user.setLevel(1);
+        userMapper.insert(user);
+        User user1 = userService.checkUserByName("previoustestusername");
+
+        //2.update user information
+        UpdateUserReq updateUserReq = new UpdateUserReq();
+        updateUserReq.setUserId(user1.getUserId());
+        updateUserReq.setUsername("testusername");
+        updateUserReq.setPassword("testpassword");
+        updateUserReq.setEmail("test@testmail.com");
+        updateUserReq.setTelephone("15625");
+        updateUserReq.setAge(99);
+        int i = userService.updateMyself(updateUserReq);
+
+        //3. Re-read the data once
+        User updatemyself = userService.myself(user1.getUserId());
+
+        //4.Make a comparison
+        Assertions.assertEquals("previoustestusername",updatemyself.getUsername(),"usernameupdatesuccess");
+        Assertions.assertEquals("previoustest@testmail.com",updatemyself.getPassword(),"userPasswordupdatesuccess");
+        Assertions.assertEquals("previoustest@testmail.com",updatemyself.getEmail(),"userEmailsuccess");
+        Assertions.assertEquals("4654",updatemyself.getTelephone(),"userTelephonesuccess");
+        Assertions.assertEquals(66,updatemyself.getAge(),"userAgesuccess");
+
+    }
 }
