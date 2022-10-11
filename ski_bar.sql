@@ -1,164 +1,164 @@
 /*
-SQLyog Trial v13.1.8 (64 bit)
-MySQL - 8.0.27 : Database - ski_bar
-*********************************************************************
+ Navicat Premium Data Transfer
+
+ Source Server         : xuyiwei
+ Source Server Type    : MySQL
+ Source Server Version : 80017
+ Source Host           : localhost:3306
+ Source Schema         : ski_bar
+
+ Target Server Type    : MySQL
+ Target Server Version : 80017
+ File Encoding         : 65001
+
+ Date: 11/10/2022 17:39:01
 */
 
-/*!40101 SET NAMES utf8 */;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ski_bar` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `ski_bar`;
-
-/*Table structure for table `activity` */
-
+-- ----------------------------
+-- Table structure for activity
+-- ----------------------------
 DROP TABLE IF EXISTS `activity`;
+CREATE TABLE `activity`  (
+  `activity_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT 'creatorid',
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `all_person` int(11) NULL DEFAULT NULL,
+  `remain_person` int(11) NULL DEFAULT NULL,
+  `start_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  `end_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  `state` int(11) NULL DEFAULT NULL,
+  `approve` int(11) NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `level` int(11) NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`activity_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 335 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `activity` (
-  `activity_id` bigint NOT NULL,
-  `user_id` bigint DEFAULT NULL COMMENT 'creatorid',
-  `name` varchar(45) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `all_person` int DEFAULT NULL,
-  `remain_person` int DEFAULT NULL,
-  `start_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `end_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `state` int DEFAULT NULL,
-  `approve` int DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `level` int DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`activity_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of activity
+-- ----------------------------
+INSERT INTO `activity` VALUES (331, 22, 'Downhill Skiing', NULL, 6, 4, '2022-12-23 20:22:22', '2022-12-25 21:22:22', 0, 1, '2022-10-09 16:26:59', '2022-10-09 16:36:42', 3, 'Sydney');
+INSERT INTO `activity` VALUES (332, 22, 'Backcountry Skiing', NULL, 4, 0, '2022-12-24 19:00:00', '2022-12-25 19:00:00', 0, 1, '2022-10-09 16:27:47', '2022-10-09 16:27:47', 1, 'Beijing');
+INSERT INTO `activity` VALUES (334, 22, 'Freestyle skiing', NULL, 6, 0, '2022-11-12 20:00:00', '2022-11-14 21:00:00', 0, 0, '2022-10-11 15:16:05', '2022-10-11 15:16:05', 1, 'Sydney');
 
-/*Data for the table `activity` */
-
-insert  into `activity`(`activity_id`,`user_id`,`name`,`description`,`all_person`,`remain_person`,`start_time`,`end_time`,`state`,`approve`,`create_time`,`update_time`,`level`,`address`) values
-(1,1,'niuniu','niuniuzi',5,4,'2022-09-14 18:01:24','2022-09-14 18:01:24',1,0,'2022-09-23 16:54:13','2022-09-21 16:54:16',1,'beijing'),
-(2,1,'das','fdsf',2,23,'2022-09-14 23:04:20','2022-09-14 23:04:20',1,0,'2022-09-22 14:47:58','2022-09-05 14:48:02',2,'shanghai'),
-(312,1,'213214','123',1,3,'2022-09-14 23:04:23','2022-09-14 23:04:23',3,0,'2022-08-31 14:50:09','2022-09-24 14:50:11',3,'shenzhen'),
-(1570032096526311425,1,'demoData',NULL,1,0,'2022-09-14 23:04:28','2022-09-14 23:04:28',0,0,'2022-09-14 20:49:56','2022-09-14 20:49:56',1,'demoData');
-
-/*Table structure for table `activity_records` */
-
+-- ----------------------------
+-- Table structure for activity_records
+-- ----------------------------
 DROP TABLE IF EXISTS `activity_records`;
+CREATE TABLE `activity_records`  (
+  `record_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `activity_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`record_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `activity_records` (
-  `record_id` bigint NOT NULL,
-  `activity_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
-  `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of activity_records
+-- ----------------------------
+INSERT INTO `activity_records` VALUES (30, 330, 21, NULL);
+INSERT INTO `activity_records` VALUES (31, 330, 22, NULL);
+INSERT INTO `activity_records` VALUES (33, 331, 22, NULL);
+INSERT INTO `activity_records` VALUES (34, 331, 21, NULL);
+INSERT INTO `activity_records` VALUES (35, 331, 23, NULL);
+INSERT INTO `activity_records` VALUES (36, 331, 24, NULL);
 
-/*Data for the table `activity_records` */
-
-/*Table structure for table `activity_result` */
-
+-- ----------------------------
+-- Table structure for activity_result
+-- ----------------------------
 DROP TABLE IF EXISTS `activity_result`;
+CREATE TABLE `activity_result`  (
+  `result_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `activity_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  `score` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`result_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `activity_result` (
-  `result_id` bigint NOT NULL,
-  `activity_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
-  `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `score` int DEFAULT NULL,
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of activity_result
+-- ----------------------------
+INSERT INTO `activity_result` VALUES (47, 330, 22, '2022-10-08 20:32:08', 76);
+INSERT INTO `activity_result` VALUES (48, 330, 21, '2022-10-08 20:32:08', 77);
+INSERT INTO `activity_result` VALUES (49, 331, 22, '2022-10-09 16:36:42', 100);
+INSERT INTO `activity_result` VALUES (50, 331, 21, '2022-10-09 16:36:42', 99);
 
-/*Data for the table `activity_result` */
-
-insert  into `activity_result`(`result_id`,`activity_id`,`user_id`,`time`,`score`) values
-(1,1,1,'2022-09-13 17:22:45',97),
-(2,1,2,'2022-09-23 17:25:30',100),
-(3,1,3,'2022-09-22 17:25:38',80),
-(4,2,1,'2022-09-10 18:07:25',99);
-
-/*Table structure for table `group` */
-
+-- ----------------------------
+-- Table structure for group
+-- ----------------------------
 DROP TABLE IF EXISTS `group`;
+CREATE TABLE `group`  (
+  `group_id` bigint(20) NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`group_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `group` (
-  `group_id` bigint NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `group` */
-
-/*Table structure for table `group_records` */
-
+-- ----------------------------
+-- Table structure for group_records
+-- ----------------------------
 DROP TABLE IF EXISTS `group_records`;
+CREATE TABLE `group_records`  (
+  `record_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`record_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `group_records` (
-  `record_id` bigint NOT NULL,
-  `group_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `group_records` */
-
-/*Table structure for table `message` */
-
+-- ----------------------------
+-- Table structure for message
+-- ----------------------------
 DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message`  (
+  `message_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group_id` bigint(20) NOT NULL,
+  `send_user_id` bigint(20) NOT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`message_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `message` (
-  `message_id` bigint NOT NULL,
-  `group_id` bigint NOT NULL,
-  `send_user_id` bigint NOT NULL,
-  `create_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`message_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `message` */
-
-/*Table structure for table `user` */
-
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(96) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `gender` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `telephone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `roles` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `perms` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `age` int(32) NULL DEFAULT NULL,
+  `level` int(32) NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `user` (
-  `user_id` bigint NOT NULL,
-  `username` varchar(32) NOT NULL,
-  `password` varchar(96) NOT NULL,
-  `gender` char(1) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `telephone` varchar(11) DEFAULT NULL,
-  `type` varchar(32) NOT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `roles` varchar(32) DEFAULT NULL,
-  `perms` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (20, 'oppo', 'bedfe476f8a2800b2711c7fdbc4d1e50', '1', '4827020@qq.com', '14324535', '2022-10-07 23:48:41', 'admin', 'admin:manage', 23, 0);
+INSERT INTO `user` VALUES (21, 'jack', 'bedfe476f8a2800b2711c7fdbc4d1e50', '1', '511878701@qq.com', '55662233', '2022-10-08 17:44:50', 'user', 'user:visit', 23, 0);
+INSERT INTO `user` VALUES (22, 'mike', 'bedfe476f8a2800b2711c7fdbc4d1e50', '1', '511878701@qq.com', '8757821', '2022-10-08 19:46:59', 'user', 'user:visit', 33, 0);
+INSERT INTO `user` VALUES (23, 'tom', 'bedfe476f8a2800b2711c7fdbc4d1e50', '1', '511878701@qq.com', '88819921', '2022-10-09 16:40:49', 'user', 'user:visit', 21, 0);
+INSERT INTO `user` VALUES (24, 'lucy', 'bedfe476f8a2800b2711c7fdbc4d1e50', '2', '511878701@qq.com', '8841133', '2022-10-09 18:05:06', 'user', 'user:visit', 23, 0);
 
-/*Data for the table `user` */
-
-insert  into `user`(`user_id`,`username`,`password`,`gender`,`email`,`telephone`,`type`,`create_time`,`roles`,`perms`) values
-(1,'ruize','123','1','1295184078@qq.com','123e1','1','2022-09-13 17:19:21','user','user:visit'),
-(2,'zhangze','123','1','3213412@qq.com','1231241','1','2022-09-13 17:20:13','user',NULL),
-(3,'demoData','123','1','demoData','demoData','1','2022-09-13 17:20:34','user',NULL),
-(1567195276346888194,'oppo','cf4b8daea76471fbcb2364fd2d837c07','0','7702024@gmail','123sd','1','2022-09-07 00:57:26','user','user:visit'),
-(1568274808059441153,'vivo','527cde558b92fcb4d23c8cdd253b763d','1','7702asd4@gmail','345345','2','2022-09-10 00:27:06','admin','admin:manage'),
-(1568634429643149314,'papi','74e0d209e2e1ed3a662997b8881ea764','1','02asd4@gmail','34123','0','2022-09-11 00:16:07','user','user:visit'),
-(1569363872909045762,'jay','7e92b4b5492ff2d846aee25e0f72ae9e','1','02asd4@gmail','34123','user','2022-09-13 00:34:39','user','user:visit');
-
-/* Procedure structure for procedure `NewProc` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `NewProc` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `NewProc`()
+-- ----------------------------
+-- Procedure structure for NewProc
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `NewProc`;
+delimiter ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `NewProc`()
 BEGIN
   #Routine body goes here...
 CREATE TABLE `user` (
@@ -172,7 +172,6 @@ CREATE TABLE `user` (
 `create_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`user_id`)
 );
-
 CREATE TABLE `activity_records` (
 `record_id` int(32) NOT NULL,
 `activity_id` int(32) NOT NULL,
@@ -180,7 +179,6 @@ CREATE TABLE `activity_records` (
 `time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`record_id`)
 );
-
 CREATE TABLE `activity` (
 `activity_id` int(32) NOT NULL,
 `group_id` int(32) NOT NULL,
@@ -196,7 +194,6 @@ CREATE TABLE `activity` (
 `update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`activity_id`)
 );
-
 CREATE TABLE `activity_result` (
 `result_id` int(32) NOT NULL,
 `activity_id` int(32) NOT NULL,
@@ -205,14 +202,12 @@ CREATE TABLE `activity_result` (
 `score` int(255) NULL,
 PRIMARY KEY (`result_id`)
 );
-
 CREATE TABLE `group_records` (
 `record_id` int(32) NOT NULL,
 `group_id` int(32) NOT NULL,
 `user_id` int(32) NOT NULL,
 PRIMARY KEY (`record_id`)
 );
-
 CREATE TABLE `group` (
 `group_id` int(32) NOT NULL,
 `name` varchar(45) NULL,
@@ -221,7 +216,6 @@ CREATE TABLE `group` (
 `update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`group_id`)
 );
-
 CREATE TABLE `message` (
 `message_id` int(32) NOT NULL,
 `group_id` int(32) NOT NULL,
@@ -230,12 +224,8 @@ CREATE TABLE `message` (
 `update_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`message_id`)
 );
+END
+;;
+delimiter ;
 
-
-END */$$
-DELIMITER ;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+SET FOREIGN_KEY_CHECKS = 1;
