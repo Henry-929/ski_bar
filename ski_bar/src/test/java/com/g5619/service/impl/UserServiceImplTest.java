@@ -17,7 +17,6 @@ class UserServiceImplTest {
     UserService userService;
     @Autowired
     UserMapper userMapper;
-    @Autowired
 
 
     @Test
@@ -84,5 +83,21 @@ class UserServiceImplTest {
         Assertions.assertEquals("4654",updatemyself.getTelephone(),"userTelephonesuccess");
         Assertions.assertEquals(66,updatemyself.getAge(),"userAgesuccess");
 
+    }
+
+    /**
+     * test delete activity
+     */
+    @Test
+    void testDelActivity() {
+        //test the User is not in the database
+        int i = userService.delUser(1L);
+        Assertions.assertEquals(-1, i);
+        // test the User id was given wrong
+        int i2 =  userService.delUser(-1L);
+        Assertions.assertEquals(-1, i2);
+        //test the User is in the database
+        int i3 =  userService.delUser(338L);
+        Assertions.assertEquals(-1,i3);
     }
 }
