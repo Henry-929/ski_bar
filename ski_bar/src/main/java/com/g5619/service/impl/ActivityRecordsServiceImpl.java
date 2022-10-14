@@ -70,6 +70,9 @@ public class ActivityRecordsServiceImpl extends ServiceImpl<ActivityRecordsMappe
             if (activityRecords.size()>0){
                 return -2;//你已参加该活动
             }
+            if (activity.getRemainPerson()>=activity.getAllPerson()){
+                return -3;//人数已满
+            }
             ActivityRecords activityRecords1 = new ActivityRecords();
             activityRecords1.setUserId(userId);
             activityRecords1.setActivityId(activityId);
