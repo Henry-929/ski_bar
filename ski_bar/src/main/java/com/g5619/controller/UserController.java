@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/login")
     public Telnet login(@RequestBody User user){
         if (user.getUsername() == null || user.getPassword() == null) {
-            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("账号密码不能为空");
+            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("The account password cannot be empty");
         }
         Subject subject = SecurityUtils.getSubject();
         String token = JwtUtil.createJWT(user.getUsername(), "back", "user", 1000 * 60 * 30);
@@ -53,9 +53,9 @@ public class UserController {
             map.put("user", userFromDB);
             return new Telnet().setCode(Telnet.CODE.OK).setMsg("成功").setData(map);
         } catch (IncorrectCredentialsException ice) {
-            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("密码不正确");
+            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("Incorrect password");
         } catch (UnknownAccountException uae) {
-            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("用户名不存在");
+            return new Telnet().setCode(Telnet.CODE.AUTHENTICATIONERROR).setMsg("The user name does not exist");
         }
     }
 
