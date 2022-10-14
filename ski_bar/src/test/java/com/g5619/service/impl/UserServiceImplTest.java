@@ -77,11 +77,11 @@ class UserServiceImplTest {
         User updatemyself = userService.myself(user1.getUserId());
 
         //4.Make a comparison
-        Assertions.assertEquals("previoustestusername",updatemyself.getUsername(),"usernameupdatesuccess");
-        Assertions.assertEquals("previoustest@testmail.com",updatemyself.getPassword(),"userPasswordupdatesuccess");
-        Assertions.assertEquals("previoustest@testmail.com",updatemyself.getEmail(),"userEmailsuccess");
-        Assertions.assertEquals("4654",updatemyself.getTelephone(),"userTelephonesuccess");
-        Assertions.assertEquals(66,updatemyself.getAge(),"userAgesuccess");
+        Assertions.assertEquals("testusername",updatemyself.getUsername(),"usernameupdatesuccess");
+        Assertions.assertEquals("testpassword",updatemyself.getPassword(),"userPasswordupdatesuccess");
+        Assertions.assertEquals("test@testmail.com",updatemyself.getEmail(),"userEmailsuccess");
+        Assertions.assertEquals("15625",updatemyself.getTelephone(),"userTelephonesuccess");
+        Assertions.assertEquals(99,updatemyself.getAge(),"userAgesuccess");
 
     }
 
@@ -92,12 +92,23 @@ class UserServiceImplTest {
     void testDelUser() {
         //test the User is not in the database
         int i = userService.delUser(1L);
-        Assertions.assertEquals(-1, i);
+        Assertions.assertEquals(0, i);
         // test the User id was given wrong
         int i2 =  userService.delUser(-1L);
-        Assertions.assertEquals(-1, i2);
+        Assertions.assertEquals(0, i2);
         //test the User is in the database
-        int i3 =  userService.delUser(338L);
-        Assertions.assertEquals(-1,i3);
+        User inputUser = new User();
+        inputUser.setUsername("papi1");
+        inputUser.setPassword("123");
+        inputUser.setLevel(1);
+        inputUser.setAge(22);
+        inputUser.setEmail("770344012@qq.com");
+        inputUser.setTelephone("123123");
+        inputUser.setRoles("user");
+        inputUser.setPerms("user:visit");
+        userService.insertUser(inputUser);
+        User user = userService.checkUserByName(inputUser.getUsername());
+        int i3 =  userService.delUser(user.getUserId());
+        Assertions.assertEquals(1,i3);
     }
 }
