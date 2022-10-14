@@ -53,7 +53,7 @@ public class ActivityRecordsController {
         }else if (key==-1){
             return new Telnet().setCode(Telnet.CODE.ARTIFICIAL).setMsg("该活动还未被审批，请过些时候来看看");
         }else if (key==-3){
-            return new Telnet().setCode(Telnet.CODE.ARTIFICIAL).setMsg("活动人数已满，请换个活动");
+            return new Telnet().setCode(Telnet.CODE.REDISERROR).setMsg("活动人数已满，请换个活动");
         }
         return new Telnet().setCode(Telnet.CODE.SQLERROR).setMsg("你已参加该活动，请勿重复操作");
 
